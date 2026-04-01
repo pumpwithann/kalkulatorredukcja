@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8">
+  <title>Pump with Ann - Redukcja</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #d4fc79, #96e6a1);
+      text-align: center;
+      padding: 30px;
+      color: #333;
+    }
+
+    .container {
+      max-width: 420px;
+      margin: auto;
+      background: white;
+      padding: 25px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      color: #2ecc71;
+      margin-bottom: 5px;
+    }
+
+    .subtitle {
+      margin-bottom: 20px;
+      color: #777;
+      font-size: 14px;
+    }
+
+    input, select {
+      margin: 8px 0;
+      padding: 12px;
+      width: 90%;
+      border: 1px solid #b8f5c6;
+      border-radius: 12px;
+      font-size: 14px;
+      outline: none;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 12px;
+      width: 95%;
+      border: none;
+      border-radius: 12px;
+      background: #2ecc71;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #27ae60;
+    }
+
+    #wynik {
+      margin-top: 20px;
+      font-size: 16px;
+      font-weight: bold;
+      text-align: left;
+      background: #ecfff1;
+      padding: 15px;
+      border-radius: 12px;
+      border: 1px solid #b8f5c6;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <h1>🔥 Pump with Ann</h1>
+  <div class="subtitle">Kalkulator na REDUKCJĘ 💪⬇️</div>
+
+  <input type="number" id="waga" placeholder="⚖️ Waga (kg)">
+  <input type="number" id="wzrost" placeholder="📏 Wzrost (cm)">
+  <input type="number" id="wiek" placeholder="🎂 Wiek">
+
+  <select id="plec">
+    <option value="m">👨 Mężczyzna</option>
+    <option value="k">👩 Kobieta</option>
+  </select>
+
+  <select id="aktywnosc">
+    <option value="1.2">🛋️ Brak aktywności</option>
+    <option value="1.4">🚶 Lekka aktywność</option>
+    <option value="1.6">🏃 Średnia aktywność</option>
+    <option value="1.8">🏋️ Duża aktywność</option>
+  </select>
+
+  <button onclick="licz()">Oblicz redukcję 🔥</button>
+
+  <div id="wynik"></div>
+</div>
+
+<script>
+function licz() {
+  let waga = document.getElementById("waga").value;
+  let wzrost = document.getElementById("wzrost").value;
+  let wiek = document.getElementById("wiek").value;
+  let plec = document.getElementById("plec").value;
+  let aktywnosc = document.getElementById("aktywnosc").value;
+
+  if (!waga || !wzrost || !wiek) {
+    alert("Uzupełnij wszystkie pola!");
+    return;
+  }
+
+  let bmr;
+
+  if (plec === "m") {
+    bmr = 10 * waga + 6.25 * wzrost - 5 * wiek + 5;
+  } else {
+    bmr = 10 * waga + 6.25 * wzrost - 5 * wiek - 161;
+  }
+
+  let utrzymanie = bmr * aktywnosc;
+
+  // REDUKCJA -15%
+  let kalorie = Math.round(utrzymanie * 0.85);
+
+  let bialko = Math.round(waga * 2.2);
+  let tluszcze = Math.round(waga * 0.8);
+  let wegle = Math.round((kalorie - (bialko * 4 + tluszcze * 9)) / 4);
+
+  document.getElementById("wynik").innerHTML = `
+    🔥 Kalorie (redukcja): ${kalorie} kcal <br><br>
+    🍗 Białko: ${bialko} g <br>
+    🥑 Tłuszcze: ${tluszcze} g <br>
+    🍞 Węglowodany: ${wegle} g
+  `;
+}
+</script>
+
+</body>
+</html>
